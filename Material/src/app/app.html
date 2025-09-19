@@ -1,0 +1,45 @@
+<!-- Toolbar siempre visible -->
+<mat-toolbar class="tb" *ngIf="mostrarSoloBarraYFooter()">
+  <span>Sietmas de Registro de Afiliaciones</span>
+  <span class="spacer"></span>
+
+  <!-- Botón de cerrar sesión solo si hay token -->
+  <button mat-button color="warn" *ngIf="usuarioAutenticado()" (click)="cerrarSesion()">
+    <mat-icon>logout</mat-icon> Salir
+  </button>
+</mat-toolbar>
+
+<!-- Botones de navegación solo si no estás en login -->
+<div style="margin: 20px;" class="button-group" *ngIf="mostrarLayoutCompleto()">
+  <!-- Solo si tiene permiso para ver usuarios -->
+  <button mat-raised-button color="primary" routerLink="/users" *ngIf="tienePermiso('ver_usuarios')">
+    <mat-icon>group</mat-icon> Usuarios
+  </button>
+
+  <!-- Solo si tiene permiso para crear usuarios -->
+  <button mat-raised-button routerLink="/users/create" *ngIf="tienePermiso('crear_usuarios')">
+    <mat-icon>person_add</mat-icon> Crear Usuarios
+  </button>
+
+  <!-- Afiliaciones: ver y crear -->
+  <button mat-raised-button routerLink="/afiliaciones/list" *ngIf="tienePermiso('ver_afiliaciones')">
+    <mat-icon>list</mat-icon> Listar Afiliaciones
+  </button>
+
+  <button mat-raised-button routerLink="/afiliaciones/create" *ngIf="tienePermiso('crear_afiliaciones')">
+    <mat-icon>store</mat-icon> Nueva Afiliación
+  </button>
+
+  <!-- Inicio siempre visible -->
+  <button mat-raised-button routerLink="/">
+    <mat-icon>home</mat-icon> Inicio
+  </button>
+</div>
+
+<!-- Aquí se carga el contenido de cada ruta -->
+<router-outlet></router-outlet>
+
+<!-- Footer siempre visible -->
+<footer class="footer-global" *ngIf="mostrarSoloBarraYFooter()">
+  <p>© 2025 Aplicación de Afiliaciones: Jhoan Sebastián Gómez Medina — Todos los derechos reservados</p>
+</footer>

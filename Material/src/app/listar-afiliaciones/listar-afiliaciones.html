@@ -1,0 +1,88 @@
+<div class="contenedor-afiliaciones">
+  <h2>Afiliaciones Registradas</h2>
+
+  <button mat-raised-button color="primary" (click)="descargarCSV()">
+    Descargar CSV
+  </button>
+
+<mat-form-field appearance="outline" class="filtro-usuario">
+  <mat-label>Filtrar por usuario</mat-label>
+  <input matInput (keyup)="filtrarPorUsuario($event)" placeholder="Ej: Administrador" />
+</mat-form-field>
+
+<table mat-table [dataSource]="afiliaciones" class="mat-elevation-z8">
+  <ng-container matColumnDef="codigo">
+    <th mat-header-cell *matHeaderCellDef>Código</th>
+    <td mat-cell *matCellDef="let a">{{ a.codigo_unico }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="comercio">
+    <th mat-header-cell *matHeaderCellDef>Comercio</th>
+    <td mat-cell *matCellDef="let a">{{ a.nombre_comercio }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="nit">
+    <th mat-header-cell *matHeaderCellDef>NIT</th>
+    <td mat-cell *matCellDef="let a">{{ a.nit }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="ciudad">
+    <th mat-header-cell *matHeaderCellDef>Ciudad</th>
+    <td mat-cell *matCellDef="let a">{{ a.ciudad }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="telefono">
+    <th mat-header-cell *matHeaderCellDef>Teléfono</th>
+    <td mat-cell *matCellDef="let a">{{ a.telefono }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef>Email</th>
+    <td mat-cell *matCellDef="let a">{{ a.email }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="direccion">
+  <th mat-header-cell *matHeaderCellDef>Dirección</th>
+  <td mat-cell *matCellDef="let a">{{ a.direccion }}</td>
+</ng-container>
+
+<ng-container matColumnDef="red_instaladora">
+  <th mat-header-cell *matHeaderCellDef>Red</th>
+  <td mat-cell *matCellDef="let a">{{ a.red_instaladora }}</td>
+</ng-container>
+
+<ng-container matColumnDef="tipo_datafono">
+  <th mat-header-cell *matHeaderCellDef>Datáfono</th>
+  <td mat-cell *matCellDef="let a">{{ a.tipo_datafono }}</td>
+</ng-container>
+
+<ng-container matColumnDef="registrado_por">
+  <th mat-header-cell *matHeaderCellDef>Registrado por</th>
+  <td mat-cell *matCellDef="let a">
+     {{ a.usuario?.nombre ? (a.usuario.nombre + ' ' + a.usuario.apellido) : 'Desconocido' }}
+</td>
+
+</ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+<ng-container matColumnDef="acciones" *ngIf="tienePermiso('editar_afiliaciones')">
+  <th mat-header-cell *matHeaderCellDef >Acciones</th>
+  <td mat-cell *matCellDef="let row" >
+    <button mat-icon-button color="primary" [routerLink]="['/afiliaciones/create', row.id]" >
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button color="warn" (click)="eliminarAfiliacion(row.id)" >
+      <mat-icon>delete</mat-icon>
+    </button>
+  </td>
+</ng-container>
+  
+</table>
+</div>
+
+
+

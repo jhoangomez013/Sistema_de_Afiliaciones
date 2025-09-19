@@ -1,0 +1,43 @@
+.tb{
+    background: red;
+    color: white;
+}
+
+.layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 24px;
+}
+
+formulario, app-users-page {
+  flex: 1 1 400px;
+}
+
+.button-group {
+  align-self: center;
+  display: flex;
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.footer-global {
+  text-align: center;
+  padding: 20px;
+  background-color: #260485;
+  color: white;
+  font-size: 14px;
+  margin-top: 40px;
+}
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+router-outlet {
+  flex: 1;
+}
+.spacer {
+  flex: 1;
+}

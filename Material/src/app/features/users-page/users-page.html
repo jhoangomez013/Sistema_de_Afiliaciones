@@ -1,0 +1,43 @@
+<section class="container">
+  <h2 class="titulo">Usuarios</h2>
+
+  <div *ngIf="vm$ | async as vm">
+    <div *ngIf="vm.loading" class="estado">Cargando...</div>
+
+    <div *ngIf="vm.error" class="estado error">
+      <p>Error: {{ vm.error }}</p>
+    </div>
+
+    <mat-card *ngIf="!vm.loading && !vm.error && vm.data.length > 0" class="lista-card">
+      <mat-list>
+        <mat-list-item *ngFor="let user of vm.data" class="usuario-item" role="listitem">
+  <div class="usuario-wrapper">
+    <mat-icon matListIcon color="primary">person</mat-icon>
+
+    <div class="usuario-contenido">
+      <div class="usuario-nombre">{{ user.nombre }} {{ user.apellido }}</div>
+      <div class="usuario-detalles">
+        <span class="email">Email: {{ user.email }}  </span>
+        <span class="username">Oficina: {{ user.oficina }}</span>
+      </div>
+    </div>
+
+    <div class="usuario-acciones">
+      <button mat-icon-button color="primary" [routerLink]="['/users/edit', user.id]" matTooltip="Editar usuario">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="eliminarUsuario(user.id)" matTooltip="Eliminar usuario">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-list-item>
+
+      </mat-list>
+    </mat-card>
+
+    <mat-card *ngIf="!vm.loading && !vm.error && vm.data.length === 0" class="lista-card">
+      <p>No hay usuarios disponibles.</p>
+    </mat-card>
+  </div>
+</section>

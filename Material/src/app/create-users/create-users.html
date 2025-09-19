@@ -1,0 +1,58 @@
+<form [formGroup]="form" (ngSubmit)="guardar()" class="card">
+<h2>{{ modoEdicion ? 'Editar Usuario' : 'Crear Usuario' }}</h2>
+
+
+  <mat-form-field appearance="outline">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="nombre" placeholder="Nombre" />
+    <mat-error *ngIf="form.get('nombre')?.hasError('required')">El nombre es obligatorio.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Apellido</mat-label>
+    <input matInput formControlName="apellido" placeholder="Apellido" />
+    <mat-error *ngIf="form.get('apellido')?.hasError('required')">El apellido es obligatorio.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" placeholder="Email" type="email" />
+    <mat-error *ngIf="form.get('email')?.hasError('required')">El email es obligatorio.</mat-error>
+    <mat-error *ngIf="form.get('email')?.hasError('email')">Formato de email inválido.</mat-error>
+  </mat-form-field>
+
+<mat-form-field appearance="outline" *ngIf="!modoEdicion">
+  <mat-label>Contraseña</mat-label>
+  <input matInput formControlName="password" placeholder="Contraseña" type="password" />
+  <mat-error *ngIf="form.get('password')?.hasError('required')">La contraseña es obligatoria.</mat-error>
+  <mat-error *ngIf="form.get('password')?.hasError('minlength')">La contraseña debe tener al menos 6 caracteres.</mat-error>
+</mat-form-field>
+
+
+  <mat-form-field appearance="outline">
+    <mat-label>Rol</mat-label>
+    <mat-select formControlName="rol_id">
+      <mat-option [value]="1">Administrador</mat-option>
+      <mat-option [value]="2">Informador</mat-option>
+      <!-- Puedes cargar dinámicamente desde el backend -->
+    </mat-select>
+    <mat-error *ngIf="form.get('rol_id')?.hasError('required')">El rol es obligatorio.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Oficina</mat-label>
+    <input matInput formControlName="oficina" placeholder="Oficina" />
+    <mat-error *ngIf="form.get('oficina')?.hasError('required')">La oficina es obligatoria.</mat-error>
+  </mat-form-field>
+
+<div class="boton-derecha">
+  <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+    {{ modoEdicion ? 'Actualizar Usuario' : 'Registrar Usuario' }}
+  </button>
+</div>
+
+
+
+
+  <p *ngIf="message">{{ message }}</p>
+</form>

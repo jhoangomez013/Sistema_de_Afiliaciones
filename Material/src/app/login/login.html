@@ -1,0 +1,20 @@
+
+
+
+<form [formGroup]="form" (ngSubmit)="onLogin()" class="card">
+  <h3>Iniciar sesión</h3>
+
+  <label>Email:
+    <input formControlName="email" placeholder="Email" />
+  </label>
+
+  <label>Contraseña:
+    <input formControlName="password" type="password" placeholder="Contraseña" />
+  </label>
+
+  <button type="submit" [disabled]="loading || form.invalid">
+    {{ loading ? 'Ingresando...' : 'Ingresar' }}
+  </button>
+
+  <div *ngIf="message" class="error">{{ message }}</div>
+</form>
